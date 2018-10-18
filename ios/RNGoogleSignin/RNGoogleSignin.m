@@ -1,7 +1,7 @@
 #import <React/RCTLog.h>
 #import "RNGoogleSignin.h"
 #import "RNGSPromiseWrapper.h"
-#import "ReactNativeConfig.h"
+#import <ReactNativeConfig/ReactNativeConfig.h>
 
 @interface RNGoogleSignin ()
 
@@ -62,10 +62,10 @@ RCT_EXPORT_METHOD(configure:(NSDictionary *)options
   NSString *isStaging = [ReactNativeConfig envFor:@"STAGING"];
   if ([isStaging isEqualToString:@"true"]) {
     NSLog(@"[FIREBASE] Development mode.");
-    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Debug"];
+    path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Debug"];
   } else {
     NSLog(@"[FIREBASE] Production mode.");
-    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Release"];
+    path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Release"];
   }
 
   if (!path) {
