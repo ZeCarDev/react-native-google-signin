@@ -1,7 +1,6 @@
 #import <React/RCTLog.h>
 #import "RNGoogleSignin.h"
 #import "RNGSPromiseWrapper.h"
-#import <ReactNativeConfig/ReactNativeConfig.h>
 
 @interface RNGoogleSignin ()
 
@@ -59,14 +58,13 @@ RCT_EXPORT_METHOD(configure:(NSDictionary *)options
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSString *path;
-  NSString *isStaging = [ReactNativeConfig envFor:@"STAGING"];
-  if ([isStaging isEqualToString:@"true"]) {
+#ifdef DEBUG
     NSLog(@"[FIREBASE] Development mode.");
     path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Debug"];
-  } else {
+#else
     NSLog(@"[FIREBASE] Production mode.");
     path = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" inDirectory:@"Release"];
-  }
+#endif
 
   if (!path) {
     RCTLogError(@"RNGoogleSignin: Missing GoogleService-Info.plist");
